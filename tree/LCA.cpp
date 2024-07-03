@@ -1,5 +1,7 @@
 
 
+// ********************************************************************************************************************************************
+
 // Approach 1
 // Find the path from root to given nodes and after that match each nodes from two path until they unmatches or one or both vector out of bound
 class Solution {
@@ -39,3 +41,27 @@ public:
         
     }
 };
+
+// ************************************************************************************************************************************************
+
+// ************************************************************************************************************************************************
+// Approach 2
+
+class Solution {
+public:
+    TreeNode* solve(TreeNode* &root, TreeNode* &p, TreeNode* &q){
+        if(root == NULL || root == p || root == q) return root;
+
+        TreeNode* left = solve(root->left, p, q);
+        TreeNode* right = solve(root->right, p, q);
+        
+        if(left == NULL) return right; 
+        else if(right == NULL) return left;
+        else return root;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        return solve(root, p, q);    
+    }
+};
+
+TC-> O(N) && SC-> O(1) i'm not considering the recursive stack space which is O(Height of tree)
